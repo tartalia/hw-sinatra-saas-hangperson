@@ -40,7 +40,7 @@ class HangpersonApp < Sinatra::Base
     begin
       letter = params[:guess].to_s[0]
       if @game.guesses.index(letter) != nil || @game.wrong_guesses.index(letter) != nil
-        flash[:message] = 'You have already used that letter'
+        flash[:message] = 'You have already used that letter.'
         redirect '/show'
       end
       @game.guess(letter)
@@ -50,8 +50,8 @@ class HangpersonApp < Sinatra::Base
       redirect '/lose' if action == :lose
       redirect '/show' if action == :play
     rescue ArgumentError, TypeError
-      logger.info 'Empty or invalid letter'
-      flash[:message] = 'Empty or invalid letter'
+      logger.info 'Invalid guess.'
+      flash[:message] = 'Invalid guess.'
       redirect '/show'
     end
   end
