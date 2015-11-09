@@ -1,15 +1,13 @@
 class HangpersonGame
-
-  # add the necessary class methods, attributes, etc. here
-  # to make the tests in spec/hangperson_game_spec.rb pass.
+  attr_reader :word, :guesses, :wrong_guesses
+  MAX_GUESS = 7
 
   # Get a word from remote "random word" service
-
-  # def initialize()
-  # end
-  
   def initialize(word)
     @word = word
+    @guesses = ''
+    @wrong_guesses = ''
+    @word_with_guesses = word
   end
 
   def self.get_random_word
@@ -19,4 +17,34 @@ class HangpersonGame
     Net::HTTP.post_form(uri ,{}).body
   end
 
+  def word_with_guesses
+    gword = ''
+    @word.each_char do | c |
+      if @guesses.index(c) != nil then gword += c else gword += '-' end
+    end
+    gword
+  end
+
+  def check_win_or_lose
+    return :lose if @wrong_guesses.length == 7
+    return :win if word_with_guesses == @word else return :play
+  end
+
+  def guess(letter)
+    raise ArgumentError if letter == '' || letter == nil
+    raise ArgumentError if /[^A-Za-z]/ =~ letter
+
+    if @word.index(letter.downcase) != nil
+      if @guesses.index(letter.downcase) == nil
+        @guesses << letter
+        return true
+      end
+    else
+      if @wrong_guesses.index(letter.downcase) == nil
+        @wrong_guesses << letter
+        return true
+      end
+    end
+    false
+  end
 end
