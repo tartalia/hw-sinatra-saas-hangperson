@@ -7,7 +7,7 @@ class HangpersonGame
     @word = word.downcase
     @guesses = ''
     @wrong_guesses = ''
-    @word_with_guesses = word
+    @word_with_guesses = word.downcase
   end
 
   def self.get_random_word
@@ -45,7 +45,7 @@ class HangpersonGame
       end
     else
       if @wrong_guesses.index(letter.downcase) == nil
-        @wrong_guesses << letter
+        @wrong_guesses << letter.downcase
         return true
       end
     end
