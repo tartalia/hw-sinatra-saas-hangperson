@@ -37,15 +37,15 @@ class HangpersonGame
   def guess(letter)
     raise ArgumentError if letter == '' || letter == nil
     raise ArgumentError if /[^A-Za-z]/ =~ letter
-
-    if @word.index(letter.downcase) != nil
-      if @guesses.index(letter.downcase) == nil
+    letter = letter.downcase
+    if @word.index(letter) != nil
+      if @guesses.index(letter) == nil
         @guesses << letter
         return true
       end
     else
-      if @wrong_guesses.index(letter.downcase) == nil
-        @wrong_guesses << letter.downcase
+      if @wrong_guesses.index(letter) == nil
+        @wrong_guesses << letter
         return true
       end
     end
