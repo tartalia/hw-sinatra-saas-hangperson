@@ -4,7 +4,7 @@ class HangpersonGame
 
   # Get a word from remote "random word" service
   def initialize(word)
-    @word = word
+    @word = word.uppercase
     @guesses = ''
     @wrong_guesses = ''
     @word_with_guesses = word
@@ -38,13 +38,13 @@ class HangpersonGame
     raise ArgumentError if letter == '' || letter == nil
     raise ArgumentError if /[^A-Za-z]/ =~ letter
 
-    if @word.index(letter.downcase) != nil
-      if @guesses.index(letter.downcase) == nil
+    if @word.index(letter.uppercase) != nil
+      if @guesses.index(letter.uppercase) == nil
         @guesses << letter
         return true
       end
     else
-      if @wrong_guesses.index(letter.downcase) == nil
+      if @wrong_guesses.index(letter.uppercase) == nil
         @wrong_guesses << letter
         return true
       end
